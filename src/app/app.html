@@ -1,0 +1,71 @@
+<main class="shell">
+  <section class="hero-card">
+    <div class="hero-copy">
+      <span class="eyebrow">glow mind for the dolls</span>
+      <h1>Sara Opinion Oracle</h1>
+      <p class="lead">
+        Um cantinho coquette, cheio de lacos, brilho e gatinhos fofos, para descobrir o que a Sara pensa
+        sobre cada nome.
+      </p>
+
+      <form class="search-box" (ngSubmit)="buscarOpiniao()">
+        <label for="nome">Nome da pessoa</label>
+        <div class="input-row">
+          <input
+            id="nome"
+            name="nome"
+            type="text"
+            placeholder="ex.: Brenda"
+            [ngModel]="nome()"
+            (ngModelChange)="nome.set($event)"
+          />
+          <button type="submit" [disabled]="carregando()">
+            {{ carregando() ? 'Consultando...' : 'Descobrir' }}
+          </button>
+        </div>
+      </form>
+
+      <div class="chips">
+        @for (dica of dicas; track dica) {
+          <button type="button" class="chip" (click)="preencherNome(dica)">
+            {{ dica }}
+          </button>
+        }
+      </div>
+
+      @if (erro()) {
+        <p class="feedback error">{{ erro() }}</p>
+      }
+
+      @if (temResposta()) {
+        <article class="result-card" [class.encosto]="resposta()?.encosto">
+          <div class="result-head">
+            <p class="result-kicker">{{ resposta()?.conhecido ? 'Nome conhecido' : 'Nova fofoca desbloqueada' }}</p>
+            <span class="badge">{{ resposta()?.encosto ? 'Encosto alert' : 'Aura delicada' }}</span>
+          </div>
+
+          <h2>{{ resposta()?.nome }}</h2>
+          <p class="result-text">{{ resposta()?.opiniao }}</p>
+        </article>
+      }
+    </div>
+
+    <div class="visual-column">
+      <div class="polaroid large tilt-left">
+        <img src="https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif" alt="gatinho piscando fofinho" />
+        <span>mood de hoje</span>
+      </div>
+
+      <div class="stack">
+        <div class="polaroid tilt-right">
+          <img src="https://media.giphy.com/media/mlvseq9yvZhba/giphy.gif" alt="gatinho branco muito fofo" />
+          <span>kitty approved</span>
+        </div>
+
+        <div class="quote-card">
+          <p>"Pretty, pink, and a tiny bit julgadora."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
